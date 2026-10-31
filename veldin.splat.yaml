@@ -4,7 +4,7 @@ options:
   basename: veldin
   # levels/singleplayer/1_veldin/overlay.elf on the unpacked disc, copied here
   target_path: veldin.elf
-  base_path: ../..
+  base_path: .
   build_path: build
   # bin segments (raw bytes) are written here; never commit them
   asset_path: build/veldin/splat_assets
