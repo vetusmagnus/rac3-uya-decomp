@@ -446,13 +446,15 @@ def check_sq_ra(defined):
         from elftools.elf.elffile import ELFFile
     except ImportError:
         return
+    # the target's list plus the common-level one, as asm_filter reads them
     listed = set()
-    list_path = T.path("sq_ra_funcs")
-    if os.path.exists(list_path):
-        for line in open(list_path):
-            f = line.split("#", 1)[0].split()
-            if f:
-                listed.add(f[0])
+    list_paths = [T.path("sq_ra_funcs"), os.path.join(ROOT, "tools", "common_c_sq_ra_funcs.txt")]
+    for list_path in list_paths:
+        if os.path.exists(list_path):
+            for line in open(list_path):
+                f = line.split("#", 1)[0].split()
+                if f:
+                    listed.add(f[0])
     segs = [(s["p_vaddr"], s.data()) for s in ELFFile(open(path, "rb")).iter_segments()
             if s["p_type"] == "PT_LOAD"]
 
@@ -477,8 +479,9 @@ def check_sq_ra(defined):
                 missing.append(name)
                 break
     if missing:
+        names = " or ".join(os.path.relpath(p, ROOT).replace(os.sep, "/") for p in list_paths)
         warn(f"{len(missing)} function(s) in C save $ra with sq/lq in retail but are not in "
-             f"tools/sq_ra_funcs.txt: {', '.join(missing[:5])}"
+             f"{names}: {', '.join(missing[:5])}"
              f"{' ...' if len(missing) > 5 else ''}. Add them there (Matching-Patterns.md, "
              "'Functions that save $ra with sq') or asm_filter leaves a 2-instruction diff")
 
