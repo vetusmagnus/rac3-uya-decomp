@@ -7,7 +7,13 @@ INCLUDE_ASM("asm/veldin/nonmatchings/text", func_004800C8);
 
 INCLUDE_ASM("asm/veldin/nonmatchings/text", func_00480578);
 
-INCLUDE_ASM("asm/veldin/nonmatchings/text", func_00480760);
+/* localdecomp:start func_00480760 */
+extern void func_00513928(s32);
+void func_00480760(void) {
+    func_00513928(0x10);
+    func_00513928(0x11);
+}
+/* localdecomp:end func_00480760 */
 
 INCLUDE_ASM("asm/veldin/nonmatchings/text", func_00480788);
 

@@ -159,7 +159,18 @@ INCLUDE_ASM("asm/veldin/nonmatchings/text", func_003BC6C8);
 
 INCLUDE_ASM("asm/veldin/nonmatchings/text", func_003BC750);
 
-INCLUDE_ASM("asm/veldin/nonmatchings/text", func_003BC850);
+/* localdecomp:start func_003BC850 */
+extern s32 D_001DEA70;
+
+void *func_003BC850(s32 arg0, s32 arg1, s32 *arg2) {
+    switch (arg1) {
+    case 1:
+        *arg2 = 0x1C;
+        return &D_001DEA70;
+    }
+    return 0;
+}
+/* localdecomp:end func_003BC850 */
 
 /* localdecomp:start func_003BC870 */
 typedef struct { s32 w0; f32 f4; s32 w8; f32 fc; s32 w10; s32 w14; u8 pad18[0x60 - 0x18]; f32 f60; f32 f64; } SrcData_3BC870;
